@@ -15,12 +15,9 @@ SIERRA_PATRON_ID = os.environ['HOLD_EXP__SIERRA_PATRON_ID']
 
 log = logging.getLogger(__name__)
 logging.basicConfig(
-    level=logging.DEBUG,
+    level=logging.INFO,
     format='[%(asctime)s] %(levelname)s [%(module)s-%(funcName)s()::%(lineno)d] %(message)s', datefmt='%d/%b/%Y %H:%M:%S' )
 
-
-browser = Firefox()
-browser.implicitly_wait( 10 )
 
 ## get token
 token = 'init'
@@ -58,17 +55,19 @@ custom_headers = {'Authorization': f'Bearer {token}' }
 payload = '{"recordType": "i", "recordNumber": 10883346, "pickupLocation": "r0001", "note": "birkin_api_testing"}'  # ZMM item, https://library.brown.edu/availability_api/v2/bib_items/b1815113/
 try:
     r = requests.post( request_url, headers=custom_headers, data=payload, timeout=30 )
-    log.debug( f'r.status_code, `{r.status_code}`' )
-    log.debug( f'r.url, `{r.url}`' )
-    log.debug( f'r.content, `{r.content}`' )
+    log.info( f'r.status_code, `{r.status_code}`' )
+    log.info( f'r.url, `{r.url}`' )
+    log.info( f'r.content, `{r.content}`' )
 except:
     log.exception( 'problem hitting api to request item; traceback follows' )
 
 
 ## show 'AFTER'
-log.info( 'showing classic-josiah AFTER' )
+seconds = 5
+log.info( f'hold placed; waiting {seconds} seconds, then showing classic-josiah AFTER' )
+time.sleep( seconds )
 show_classic_josiah_bib()
 
 
 ## done
-log.debug( 'DONE' )
+log.info( 'DONE' )
