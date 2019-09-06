@@ -1,6 +1,6 @@
 *.pyc
 .DS_Store
 .hg
-.log
+*.log
 .svn
 env
