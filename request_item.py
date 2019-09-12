@@ -63,7 +63,7 @@ except:
 
 
 ## show 'AFTER'
-seconds = 5
+seconds = 10
 log.info( f'hold placed; waiting {seconds} seconds, then showing classic-josiah AFTER' )
 time.sleep( seconds )
 show_classic_josiah_bib()
